@@ -31,28 +31,28 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     document.getElementById('generate').addEventListener('click', () => {
-        const date = document.getElementById('date').value.split('-').reverse()
-        const location = document.getElementById('locations')
-        const shift = document.getElementById('shift')
-        const installations = document.getElementById('appInstallCount').value
-        const offer = document.getElementById('customerOffersCount').value
-        const leaflets = document.getElementById('leafletCount').value
-        const service = document.getElementById('tableServeCount').value
-        const mcCafe = document.getElementById('mcCafeCount').value
-        const overview = document.getElementById('dayOverview')
-        let customerComment = []
+        const date = document.getElementById('date').value.split('-').reverse();
+        const location = document.getElementById('locations');
+        const shift = document.getElementById('shift');
+        const installations = document.getElementById('appInstallCount').value;
+        const offer = document.getElementById('customerOffersCount').value;
+        const leaflets = document.getElementById('leafletCount').value;
+        const service = document.getElementById('tableServeCount').value;
+        const mcCafe = document.getElementById('mcCafeCount').value;
+        const overview = document.getElementById('dayOverview');
+        let customerComment = [];
         document.querySelectorAll('.comments').forEach(container => {
-            customerComment.push(container.innerHTML)
-        })
+            customerComment.push(container.innerHTML);
+        });
 
         function getValue(num) {
-            return num === '' ? 0 : Number(num)
+            return num === '' ? 0 : Number(num);
         }
 
         const template =
-`Дата: ${date.join('.')}
+            `Дата: ${date.join('.')}
 Обект: ${location.options[location.selectedIndex].text}
-Смяна: ${shift.options[location.selectedIndex].text} 
+Смяна: ${shift.options[shift.selectedIndex].text} 
 
 1.Брой изтеглени проложения: ${getValue(installations)}
 
@@ -62,13 +62,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
 4. Брой сервирани маси: ${getValue(service)}
 
-5. За обектите на МакКафе (Сердика и Младост) - брой закупени напитки/десерти след като вие сте предложили или случайно ако видите да са си купили: ${getValue(mcCafe)}
+5. За обектите на МакКафе (Сердика и Младост) - брой закупени напитки/десерти 
+след като вие сте предложили или случайно ако видите да са си купили: ${getValue(mcCafe)}
 
 6. Коментари как е протекъл денят:
 ${overview.value}
+
 7. Коментари от хората:
--${customerComment.join('\n- ')}`
-        console.log(template)
-        //TODO add popup window to show the ready template and a copy button to copy it to the clipboard of the device
-    })
-})
+- ${customerComment.join('\n- ')}`;
+
+        // Display the popup with the generated template
+        document.getElementById('popup-content').textContent = template;
+        document.getElementById('popup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    });
+
+    // Close popup logic
+    document.getElementById('cls-button').addEventListener('click', () => {
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    });
+
+    // Close popup when clicking outside of it
+    document.getElementById('overlay').addEventListener('click', () => {
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    });
+
+    // Copy template to clipboard
+    document.getElementById('copyBtn').addEventListener('click', () => {
+        const text = document.getElementById('popup-content').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Template copied to clipboard');
+        }).catch(err => {
+            console.log(`Failed to copy template: ${err}`);
+        });
+    });
+});
