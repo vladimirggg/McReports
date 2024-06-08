@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return num === '' ? 0 : Number(num);
         }
 
-        const template =
-            `Дата: ${date.join('.')}
+        // Display the popup with the generated template
+        document.getElementById('popup-content').textContent = `Дата: ${date.join('.')}
 Обект: ${location.options[location.selectedIndex].text}
 Смяна: ${shift.options[shift.selectedIndex].text} 
 
@@ -70,9 +70,6 @@ ${overview.value}
 
 7. Коментари от хората:
 - ${customerComment.join('\n- ')}`;
-
-        // Display the popup with the generated template
-        document.getElementById('popup-content').textContent = template;
         document.getElementById('popup').style.display = 'block';
         document.getElementById('overlay').style.display = 'block';
     });

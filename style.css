@@ -73,6 +73,7 @@ input, select{
     font-size: x-large;
     font-family: "Dancing-Script", sans-serif;
     background-color: #FFC72C;
+    cursor: pointer;
 }
 
 
@@ -98,7 +99,7 @@ input::-webkit-inner-spin-button{
     max-width: 600px;
     padding: 20px;
     text-align: left;
-    overflow-y: auto; /* Add vertical scrollbar if content overflows */
+    overflow-y: clip; /* Add vertical scrollbar if content overflows */
     max-height: 80%; /* Ensure popup doesn't exceed 80% of viewport height */
 }
 
@@ -131,12 +132,3 @@ input::-webkit-inner-spin-button{
     border-radius: 5px;
     cursor: pointer;
 }
-
-/* Ensure text wraps and fits within the popup */
-#popupContent {
-    white-space: pre-wrap; /* Preserve whitespace and wrap text */
-    word-wrap: break-word; /* Ensure long words break and wrap */
-    font-family: "Dancing-Script", sans-serif; /* Match the main font */
-    font-size: medium; /* Adjust font size for readability */
-}
-
